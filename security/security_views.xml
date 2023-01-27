@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="module_ot_management_new" model="ir.module.category">
+        <field name="name">Management OT</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="ot_management_group_U" model="res.groups">
+        <field name="name">users</field>
+        <field name="category_id" ref="module_ot_management_new"/>
+    </record>
+
+    <record id="ot_management_group_DL" model="res.groups">
+        <field name="name">D Lead</field>
+        <field name="category_id" ref="module_ot_management_new"/>
+    </record>
+
+    <record id="ot_management_group_P" model="res.groups">
+        <field name="name">P Management</field>
+        <field name="category_id" ref="module_ot_management_new"/>
+    </record>
+
+    <record model="ir.rule" id="ot_management_user_rule">
+        <field name="name">ot.management.user.rule</field>
+        <field name="model_id" ref="model_ot_management"/>
+        <field name="groups" eval="[(4, ref('ot_management.ot_management_group_U'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id) ]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record model="ir.rule" id="ot_management_update_user">
+        <field name="name">ot.management.update.user</field>
+        <field name="model_id" ref="model_ot_management"/>
+        <field name="groups" eval="[(4, ref('ot_management.ot_management_group_U'))]"/>
+        <field name="domain_force">[('state', '=', 'draft')]</field>
+        <field name="perm_read" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record model="ir.rule" id="ot_management_update_user_1">
+        <field name="name">ot.management.update.user.1</field>
+        <field name="model_id" ref="model_ot_management"/>
+        <field name="groups" eval="[(4, ref('ot_management.ot_management_group_U'))]"/>
+        <field name="domain_force">[('state', '!=', 'draft')]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record model="ir.rule" id="ot_management_pm_request">
+        <field name="name">ot.management.pm.request</field>
+        <field name="model_id" ref="model_ot_management"/>
+        <field name="groups" eval="[(4, ref('ot_management.ot_management_group_P'))]"/>
+        <field name="domain_force">['|', ('create_uid', '=', user.id), '&amp;', ('project_id.user_id.id', '=', user.id), ('state', '!=', 'draft')]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record model="ir.rule" id="ot_management_pm_request_lines">
+        <field name="name">ot.management.dl.request</field>
+        <field name="model_id" ref="model_ot_management"/>
+        <field name="groups" eval="[(4, ref('ot_management.ot_management_group_DL'))]"/>
+        <field name="domain_force">['|', ('create_uid', '=', user.id), '&amp;', ('dl_manager_id.user_id.id', '=', user.id), ('state', '!=', 'draft')]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+</odoo>

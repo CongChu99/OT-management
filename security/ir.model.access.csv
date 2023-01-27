@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ot_management,ot_management user,model_ot_management,base.group_user,1,1,1,1
+access_ot_management_user,ot_management user,model_ot_management,ot_management_group_U,1,1,1,1
+access_ot_management_PM,ot_management PM,model_ot_management,ot_management_group_P,1,1,1,1
+access_ot_management_DL,ot_management DL,model_ot_management,ot_management_group_DL,1,1,1,1
+access_ot_registration_lines,ot_registration_lines User,model_ot_registration_lines,base.group_user,1,1,1,1
+access_ot_registration_lines_user,ot_registration_lines User,model_ot_registration_lines,ot_management_group_U,1,1,1,1
+access_ot_registration_lines_pm,ot_registration_lines PM,model_ot_registration_lines,ot_management_group_P,1,1,1,1
+access_ot_registration_lines_dl,ot_registration_lines DL,model_ot_registration_lines,ot_management_group_DL,1,1,1,1
+
+
+
+

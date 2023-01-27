@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="ot_management_form_view" model="ir.ui.view">
+            <field name="name">ot.management.form.view</field>
+            <field name="model">ot.management</field>
+            <field name="arch" type="xml">
+            <header modifiers="{}">
+                <field name="state" widget="statusbar" readonly="1" on_change="1" modifiers="{'readonly':true}"/>
+                <button name="draft_request" type="object" string="Reset to Draft" class="oe_highlight" attrs="{'invisible': [('state','!=','refused')]}" confirm="Set OT request to Draft?" modifiers="{'invisible':[['state','!=','refused']]}" options="{}"/>
+                <button name="action_submit" string="Submit" type="object" icon="fa-reply text-warning" context="{'active_ids': active_ids, 'type': 'submit'}" attrs="{'invisible': [('state','!=','draft')]}" modifiers="{'invisible':[['state','!=','draft']]}" options="{}"/>
+                <button name="button_pm_dl_approve" string="PM Approve" type="object" icon="fa-reply text-warning" context="{'active_ids': active_ids, 'type': 'pm_approve'}" attrs="{'invisible': [('state','!=','to_approve')]}" modifiers="{'invisible':[['state','!=','to_approve']]}" options="{}" groups="ot_management.ot_management_group_P"/>
+                <button name="button_dl_approve" string="Dl Approve" type="object" icon="fa-reply text-warning" context="{'active_ids': active_ids, 'type': 'dl_approve'}" attrs="{'invisible': [('state','!=','approved')]}" modifiers="{'invisible':[['state','!=','approved']]}" options="{}" groups="ot_management.ot_management_group_DL"/>
+                <button name="refuse_request_pm" type="object" string="Refuse" class="oe_highlight" confirm="Are you sure to Refuse the OT request?" attrs="{'invisible': [('state','!=','to_approve')]}" modifiers="{'invisible':[['state','!=','to_approve']]}" options="{}" groups="ot_management.ot_management_group_P"/>
+                <button name="refuse_request_dl" type="object" string="Refuse" class="oe_highlight" confirm="Are you sure to Refuse the OT request?" attrs="{'invisible': [('state','!=','approved')]}" modifiers="{'invisible':[['state','!=','approved']]}" options="{}" groups="ot_management.ot_management_group_DL"/>
+            </header>
+                <form>
+                    <group name="OT_request">
+                        <group>
+                            <field name="project_id"/>
+                            <field name="manager_id"/>
+                            <field name="ot_month"/>
+                        </group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="dl_manager_id"/>
+                            <field name="create_date"/>
+                            <field name="additional_hours" string="OT hour"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="ot_request_line" string="OT Request Line">
+                            <field name="ot_lines">
+                               <tree editable="bottom">
+                                   <field name="date_from"/>
+                                   <field name="date_to"/>
+                                   <field name="category" string="OT Category"/>
+                                   <field name="is_wfh"/>
+                                   <field name="additional_hours"/>
+                                   <field name="job_taken"/>
+                                   <field name="state"/>
+                                   <field name="late_approved"/>
+                                   <field name="notes" string="HR Notes"/>
+                                   <field name="attendance_notes"/>
+                                   <field name="plan_hours"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="ot_management_views_tree" model="ir.ui.view">
+            <field name="name">ot.management.views.tree</field>
+            <field name="model">ot.management</field>
+            <field name="arch" type="xml">
+                <tree class="text-center">
+                    <field name="project_id"/>
+                    <field name="employee_id"/>
+                    <field name="manager_id"/>
+                    <field name="additional_hours"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ot_management_search_view" model="ir.ui.view">
+            <field name="name">ot.management.search.view</field>
+            <field name="model">ot.management</field>
+            <field name="arch" type="xml">
+                <search string="OT management">
+                    <field name="employee_id"/>
+                    <field name="project_id"/>
+                    <group expand="0" string="To approve">
+                        <filter name="state" string="State: To PM Approve" domain="[('state', '=', 'to_approve')]"/>
+                        <filter name="state" string="State: To DL Approve" domain="[('state', '=', 'approved')]"/>
+                        <separator/>
+                        <filter name="state" string="State: DL Approve" domain="[('state', '=', 'done')]"/>
+                    </group>
+                    <group expand="0" string="Group by">
+                        <filter name="project" string="Project" context="{'group_by': 'project_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ot_management" model="ir.actions.act_window">
+            <field name="name">OT request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ot.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_ot_management_configuration"
+            name="OT Management"
+            sequence="100"/>
+
+        <menuitem
+            id="ot_management_menu"
+            name="My OT Registration"
+            parent="menu_ot_management_configuration"
+            sequence="10"/>
+
+        <menuitem
+            id="ot_management_menu_configuration"
+            action="action_ot_management"
+            name="OT request"
+            parent="ot_management_menu"
+            sequence="1"/>
+    </data>
+</odoo>

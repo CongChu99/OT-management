@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_employee_dl_data" model="hr.employee">
+            <field name="name">Nguyen Van A</field>
+            <field name="job_title">DL</field>
+        </record>
+
+        <record id="hr_employee_pm_data" model="hr.employee">
+            <field name="name">Nguyen Van B</field>
+            <field name="job_title">PM</field>
+        </record>
+
+        <record id="hr_employee_pm_data_1" model="hr.employee">
+            <field name="name">Nguyen Van C</field>
+            <field name="job_title">PM</field>
+        </record>
+    </data>
+</odoo>

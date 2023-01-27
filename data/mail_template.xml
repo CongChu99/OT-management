@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="email_template_pm_approved" model="mail.template">
+            <field name="name">PM TO APPROVED</field>
+            <field name="model_id" ref="model_ot_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">company@vti.com.vn</field>
+            <field name="email_to">${(object.manager_id.work_email)}</field>
+            <field name="subject">PM To Approved</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear ${(object.manager_id.name)},<br/><br/>
+                Please approve project!<br/></p>
+                Regards,<br/>]]></field>
+        </record>
+
+        <record id="email_template_dl_approved" model="mail.template">
+            <field name="name">DL TO APPROVED</field>
+            <field name="model_id" ref="model_ot_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">company@vti.com.vn</field>
+            <field name="email_to">${(object.dl_manager_id.work_email)}</field>
+            <field name="email_cc">${(object.employee_id.work_email)}</field>
+            <field name="subject">DL ToApproved</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear ${(object.dl_manager_id.name)},<br/><br/>
+                Please approve project!<br/></p>
+                Regards,<br/>]]></field>
+        </record>
+
+        <record id="email_template_refuse_pm" model="mail.template">
+            <field name="name">PM Refuse</field>
+            <field name="model_id" ref="model_ot_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">company@vti.com.vn</field>
+            <field name="email_to">${(object.employee_id.work_email)} </field>
+            <field name="subject">PM Refuse</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear ${(object.employee_id.name)},<br/><br/>
+                Refuse<br/></p>
+                Regards,<br/> ]]></field>
+        </record>
+
+        <record id="email_template_refuse_dl" model="mail.template">
+            <field name="name">DL Refuse</field>
+            <field name="model_id" ref="model_ot_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">company@vti.com.vn</field>
+            <field name="email_to">${(object.employee_id.work_email)} </field>
+            <field name="subject">DL Refuse</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear ${(object.employee_id.name)},<br/><br/>
+                Refuse<br/></p>
+                Regards,<br/> ]]></field>
+        </record>
+
+        <record id="email_template_done" model="mail.template">
+            <field name="name">DL Done</field>
+            <field name="model_id" ref="model_ot_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">company@vti.com.vn</field>
+            <field name="email_to">${(object.employee_id.work_email)} </field>
+            <field name="subject">DL Done</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear ${(object.employee_id.name)},<br/><br/>
+                DONE
+                <br/></p>
+                %set link = object.get_link()
+                <p>Chi tiết tại <a href="${link}">LINK</a>.</p><br/> ]]></field>
+        </record>
+    </data>
+</odoo>
